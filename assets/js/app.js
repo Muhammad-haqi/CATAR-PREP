@@ -339,30 +339,29 @@ MODS.about = () => {
   V().innerHTML = `
     ${hd('Pengembang & Arsitektur Sistem', 'Dokumentasi portofolio keaslian, identitas kreator, dan spesifikasi teknologi CATAR PREP.')}
 
-    <!-- KARTU PROFIL UTAMA -->
-    <div class="card" style="background:linear-gradient(135deg, var(--card) 0%, var(--bg) 100%); border:2px solid var(--navy2,#13398a)">
-      <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap">
-        <div style="width:84px; height:84px; border-radius:50%; background:linear-gradient(135deg, var(--navy2,#13398a) 0%, var(--navy-light,#1e4ab0) 100%); display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#fff; box-shadow:0 4px 14px rgba(19,57,138,0.3)">
+    <!-- KARTU PROFIL UTAMA (STANDAR WEB APP DEVELOPER) -->
+    <div class="card" style="background:var(--card); border:1px solid var(--bd)">
+      <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap">
+        <div style="width:68px; height:68px; border-radius:50%; background:linear-gradient(135deg, var(--navy2,#13398a) 0%, var(--navy-light,#1e4ab0) 100%); display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff">
           👨‍💻
         </div>
 
         <div style="flex:1; min-width:240px">
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
-            <h2 style="margin:0; font-size:1.4rem">Muhammad Haqi Rasya Arazy</h2>
-            <span style="background:rgba(16,185,129,0.15); color:var(--ok,#10b981); padding:3px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; border:1px solid var(--ok,#10b981)">
-              ✓ Verified Original Developer
+            <h2 style="margin:0; font-size:1.3rem">Muhammad Haqi Rasya Arazy</h2>
+            <span style="background:var(--bg); color:var(--navy2,#13398a); padding:3px 8px; border-radius:6px; font-size:0.75rem; font-weight:600; border:1px solid var(--bd)">
+              Lead Developer & Creator
             </span>
           </div>
 
-          <p style="margin:4px 0 10px 0; color:var(--mut); font-size:0.95rem">
-            Mahasiswa S1 Program Studi <b>Ilmu Komputer — Universitas Sumatera Utara (USU)</b><br>
-            <small style="color:var(--navy2,#13398a); font-weight:bold">Creator & Software Architect — CATAR PREP Platform</small>
+          <p style="margin:4px 0 10px 0; color:var(--mut); font-size:0.9rem">
+            Full-Stack Software Developer & System Architect
           </p>
 
           <div style="display:flex; gap:8px; flex-wrap:wrap">
-            <span style="background:var(--card); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.8rem">💻 Full-Stack Web Development</span>
-            <span style="background:var(--card); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.8rem">📊 Algoritma & Sistem Informasi</span>
-            <span style="background:var(--card); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.8rem">🛡️ Cryptography & Software Architecture</span>
+            <span style="background:var(--bg); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.78rem">💻 Web Engineering</span>
+            <span style="background:var(--bg); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.78rem">📊 Performance Analytics</span>
+            <span style="background:var(--bg); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.78rem">⚙️ System Architecture</span>
           </div>
         </div>
       </div>
@@ -373,7 +372,9 @@ MODS.about = () => {
       <div class="card">
         <h3 style="margin-top:0; color:var(--navy2,#13398a)">💡 Inovasi & Latar Belakang Ciptaan</h3>
         <p style="font-size:0.92rem; line-height:1.6; color:var(--ink)">
-          Aplikasi <b>CATAR PREP</b> dikembangkan secara mandiri oleh <b>Muhammad Haqi Rasya Arazy</b> sejak awal 2026. Berawal dari inisiatif untuk menyediakan platform simulasi terpadu, aplikasi ini dirancang khusus untuk membantu para calon taruna/praja dalam mengukur dan mematangkan kesiapan menuju berbagai Sekolah Kedinasan impian (seperti POLTEKIMIPAS, IPDN, STIN, STIS, PKN STAN, dan instansi lainnya).
+          Aplikasi <b>CATAR PREP</b> dikembangkan sejak awal 2026. Berawal dari inisiatif untuk menyediakan platform simulasi terpadu, 
+          aplikasi ini dirancang khusus untuk membantu para calon taruna/praja dalam mengukur dan mematangkan kesiapan menuju berbagai Sekolah Kedinasan impian 
+          (seperti POLTEKIMIPAS, IPDN, STIN, STIS, PKN STAN, dan instansi lainnya).
         </p>
         <p style="font-size:0.92rem; line-height:1.6; color:var(--ink); margin-bottom:0">
           Sistem ini memecahkan kendala calon peserta dalam melacak progres tes fisik, latihan kecepatan psikotes, hingga persiapan wawancara secara otomatis, terukur, dan berbasis standar norma resmi.
@@ -393,13 +394,14 @@ MODS.about = () => {
       </div>
     </div>
 
-    <!-- SERTIFIKASI & PERNYATAAN HAK CIPTA -->
-    <div class="card" style="text-align:center; background:rgba(56,189,248,0.06); border:1px dashed var(--navy2,#13398a)">
-      <h3 style="margin-top:0; color:var(--navy2,#13398a)">📜 Pernyataan Keaslian & Hak Cipta Perangkat Lunak</h3>
-      <p style="max-width:750px; margin:0 auto 12px; font-size:0.9rem; color:var(--ink); line-height:1.6">
-        "Seluruh baris kode program, kalkulasi logika norma Samapta, algoritma Pauli CAT, serta desain antarmuka aplikasi <b>CATAR PREP</b> dibuat dan dirancang 100% secara mandiri oleh <b>Muhammad Haqi Rasya Arazy</b> tanpa menggunakan template generator instan."
+    <!-- FOOTER INFORMASI PLATFORM (STANDAR WEB MODERN) -->
+    <div class="card" style="text-align:center; padding:18px; background:var(--card); border:1px solid var(--bd)">
+      <p style="margin:0 0 8px 0; font-size:0.9rem; color:var(--ink)">
+        <b>CATAR PREP</b> — Platform simulasi mandiri terpadu untuk persiapan seleksi Sekolah Kedinasan.
       </p>
-      <small style="color:var(--mut); font-weight:bold">CATARPREP © 2026 — Master Selection Simulator for Sekolah Kedinasan</small>
+      <small style="color:var(--mut)">
+        Developed by <b>Muhammad Haqi Rasya Arazy</b> · © 2026
+      </small>
     </div>
   `;
 };
