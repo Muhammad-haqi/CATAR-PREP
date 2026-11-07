@@ -7,12 +7,12 @@
 // ------------------------------------------
 function modStats() {
   const L = (a) => a[a.length - 1];
-  const p = (k, f) => (DB[k].length ? Math.round(f(L(DB[k]))) : null);
+  const p = (k, f) => (DB[k] && DB[k].length ? Math.round(f(L(DB[k]))) : null);
 
   return [
     [
       'BMI',
-      DB.bmi.length,
+      DB.bmi ? DB.bmi.length : 0,
       p('bmi', (r) =>
         r.cat === 'Normal'
           ? 100
@@ -20,39 +20,39 @@ function modStats() {
           ? 60
           : 40
       ),
-      DB.bmi.length ? `BMI terakhir ${L(DB.bmi).bmi} (${L(DB.bmi).cat})` : null
+      DB.bmi && DB.bmi.length ? `BMI terakhir ${L(DB.bmi).bmi} (${L(DB.bmi).cat})` : null
     ],
     [
       'Pauli/Kraepelin',
-      DB.pauli.length,
+      DB.pauli ? DB.pauli.length : 0,
       p('pauli', (r) => r.acc),
-      DB.pauli.length
+      DB.pauli && DB.pauli.length
         ? `Akurasi ${L(DB.pauli).acc}%, ${L(DB.pauli).speed} soal/menit`
         : null
     ],
     [
       'Tes fisik',
-      DB.phys.length,
+      DB.phys ? DB.phys.length : 0,
       null,
-      DB.phys.length ? `${DB.phys.length} catatan latihan` : null
+      DB.phys && DB.phys.length ? `${DB.phys.length} catatan latihan` : null
     ],
     [
       'Wawancara',
-      DB.interview.length,
-      p('interview', (r) => (r.score / 5) * 100),
-      DB.interview.length ? `Evaluasi diri ${L(DB.interview).score}/5` : null
+      DB.interview ? DB.interview.length : 0,
+      p('interview', (r) => ((r.score || r.starScore || 0) / 5) * 100),
+      DB.interview && DB.interview.length ? `Evaluasi diri ${L(DB.interview).score || L(DB.interview).starScore || 0}/5` : null
     ],
     [
       'Latihan mental',
-      DB.mental.length,
+      DB.mental ? DB.mental.length : 0,
       p('mental', (r) => r.score),
-      DB.mental.length ? `${L(DB.mental).test}: ${L(DB.mental).txt}` : null
+      DB.mental && DB.mental.length ? `${L(DB.mental).test || 'Mental'}: ${L(DB.mental).txt || L(DB.mental).score}` : null
     ],
     [
       'Situational judgment',
-      DB.sjt.length,
+      DB.sjt ? DB.sjt.length : 0,
       p('sjt', (r) => r.pct),
-      DB.sjt.length ? `Skor ${L(DB.sjt).pct}%` : null
+      DB.sjt && DB.sjt.length ? `Skor ${L(DB.sjt).pct}%` : null
     ]
   ];
 }
@@ -122,7 +122,10 @@ MODS.report = () => {
 
     <div class="card">
       <h2>Perkembangan</h2>
-      <canvas id="r1"></canvas>
+      <!-- Pembatas Tinggi Canvas (Mencegah Infinite Loop / Lag Laptop) -->
+      <div style="height:260px; position:relative">
+        <canvas id="r1"></canvas>
+      </div>
     </div>
 
     <div class="card">
@@ -156,8 +159,8 @@ function pdfReport() {
 
   y += 8;
   d.setFontSize(10);
-  const profileName = DB.profile.name || 'Calon Taruna';
-  const profileTarget = DB.profile.target || '-';
+  const profileName = (DB.profile && DB.profile.name) || 'Calon Taruna';
+  const profileTarget = (DB.profile && DB.profile.target) || '-';
   const currentDate = new Date().toLocaleDateString('id-ID');
   d.text(`${profileName} | ${profileTarget} | ${currentDate}`, 14, y);
 
@@ -175,12 +178,12 @@ function pdfReport() {
     const textBlock = `${x[0]}\n${x[1]} sesi - skor ${scoreText}\n${summaryText}`;
 
     d.text(textBlock, 14, y, { maxWidth: 180 });
-    y += 18; // Spasi per baris modul
+    y += 18;
   });
 
   y += 4;
   d.text('Bukan prediksi kelulusan atau standar resmi instansi.', 14, y);
 
   d.save('CATAR-PREP-Laporan.pdf');
-  toast('PDF diunduh');
+  if (typeof toast === 'function') toast('PDF diunduh');
 }
