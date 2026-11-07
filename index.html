@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CATAR PREP</title>
+  <link rel="stylesheet" href="assets/css/style.css?v=2">
+</head>
+<body>
+  <div class="app">
+    <nav id="nav"></nav>
+    <main id="view"></main>
+  </div>
+  <div id="toast"></div>
+
+  <!-- Libraries -->
+  <script src="libraries/chart.umd.js"></script>
+  <script src="libraries/jspdf.umd.min.js"></script>
+
+  <!-- Core State & Router Engine (Wajib dipanggil paling atas) -->
+  <script src="assets/js/storage.js?v=2"></script>
+  <script src="assets/js/app.js?v=2"></script>
+
+  <!-- Data -->
+  <script src="assets/js/data/interview-data.js?v=2"></script>
+  <script src="assets/js/data/situational-data.js?v=2"></script>
+
+  <!-- Modul Fitur -->
+  <script src="assets/js/bmi.js?v=2"></script>
+  <script src="assets/js/pauli.js?v=2"></script>
+  <script src="assets/js/physical.js?v=2"></script>
+  <script src="assets/js/interview.js?v=2"></script>
+  <script src="assets/js/mental.js?v=2"></script>
+  <script src="assets/js/situational.js?v=2"></script>
+  <script src="assets/js/report.js?v=2"></script>
+
+  <script>
+    route();
+  </script>
+</body>
+</html>
