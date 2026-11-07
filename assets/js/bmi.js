@@ -10,6 +10,11 @@ MODS.bmi = () => {
     ['Gender', (r) => (r.gender === 'W' ? 'Wanita' : 'Pria')]
   ];
 
+  const last = DB.bmi && DB.bmi.length ? DB.bmi[DB.bmi.length - 1] : null;
+
+  // Render hasil analisis otomatis jika sudah ada data riwayat terakhir
+  const resHTML = last ? generateBmiResultHTML(last) : '';
+
   V().innerHTML = `
     ${hd('BMI & Body Assessment', 'Skrining kondisi tubuh, tinggi minimal, dan target berat ideal Rikkes.')}
     
@@ -18,26 +23,26 @@ MODS.bmi = () => {
         <div>
           <label>Jenis Kelamin</label>
           <select id="g">
-            <option value="M">Pria</option>
-            <option value="W">Wanita</option>
+            <option value="M" ${last && last.gender === 'M' ? 'selected' : ''}>Pria</option>
+            <option value="W" ${last && last.gender === 'W' ? 'selected' : ''}>Wanita</option>
           </select>
         </div>
         <div>
           <label>Tinggi (cm)</label>
-          <input id="h" type="number" min="100" max="230" placeholder="170">
+          <input id="h" type="number" min="100" max="230" placeholder="170" value="${last ? last.h : ''}">
         </div>
         <div>
           <label>Berat (kg)</label>
-          <input id="w" type="number" min="25" max="250" placeholder="60">
+          <input id="w" type="number" min="25" max="250" placeholder="60" value="${last ? last.w : ''}">
         </div>
         <div>
           <label>Usia (opsional)</label>
-          <input id="a" type="number" min="10" max="80" placeholder="18">
+          <input id="a" type="number" min="10" max="80" placeholder="18" value="${last && last.age ? last.age : ''}">
         </div>
         <button onclick="calcBmi()">Hitung Analysis</button>
       </div>
       
-      <div id="res"></div>
+      <div id="res">${resHTML}</div>
       ${note('BMI & BBI merupakan indikator skrining mandiri persiapan Rikkes (Pemeriksaan Kesehatan), bukan diagnosis medis resmi.')}
     </div>
 
@@ -60,21 +65,11 @@ MODS.bmi = () => {
 };
 
 // ------------------------------------------
-// LOGIKA KALKULASI BMI & RIKKES TARGET
+// HELPER GENERATE HTML HASIL & SARAN AKSI
 // ------------------------------------------
-function calcBmi() {
-  const g = $('#g').value;
-  const h = +$('#h').value;
-  const w = +$('#w').value;
-  const age = +$('#a').value || null;
+function generateBmiResultHTML(data) {
+  const { gender: g, h, w, bmi } = data;
 
-  if (!(h >= 100 && h <= 230 && w >= 25 && w <= 250)) {
-    return toast('Isi tinggi 100–230 cm dan berat 25–250 kg', 1);
-  }
-
-  const bmi = +(w / (h / 100) ** 2).toFixed(1);
-
-  // Kategori, Warna Status & Rekomendasi Terstruktur
   let cat = '';
   let catColor = '';
   let dietAdvice = '';
@@ -83,38 +78,36 @@ function calcBmi() {
 
   if (bmi < 18.5) {
     cat = 'Kurus (Underweight)';
-    catColor = '#3b82f6'; // Biru
+    catColor = '#3b82f6';
     dietAdvice = '<b>Pola Makan:</b> Surplus kalori (+300 hingga +500 kcal/hari). Perbanyak asupan protein (dada ayam, telur, susu, tempe) dan karbohidrat kompleks (nasi merah, kentang) untuk menaikkan massa otot murni.';
     workoutAdvice = '<b>Pola Olahraga:</b> Fokus latihan beban (Hypertrophy) dan kalistenik (Push-up, Pull-up, Dip) 3–4x seminggu. Batasi lari maraton/cardio jarak jauh berlebih agar kalori tidak habis terbuang.';
     rikkesAdvice = '<b>Fokus Rikkes:</b> Naikkan berat badan hingga masuk rentang ideal agar skor postur tubuh (Stakes) optimal dan tenaga Samapta B maksimal.';
   } else if (bmi < 25.0) {
     cat = 'Normal (Ideal Rikkes)';
-    catColor = '#10b981'; // Hijau
+    catColor = '#10b981';
     dietAdvice = '<b>Pola Makan:</b> Pertahankan gizi seimbang (40% karbohidrat, 30% protein, 30% lemak sehat). Pastikan minum air putih minimal 2.5 – 3 Liter per hari untuk menjaga metabolisme.';
     workoutAdvice = '<b>Pola Olahraga:</b> Fokus ke latihan spesifik Samapta! Latihan lari 12 menit (VO2 Max), interval run, serta push-up, sit-up, dan pull-up harian untuk mengejar skor 100.';
     rikkesAdvice = '<b>Fokus Rikkes:</b> Komposisi tubuhmu sudah ideal untuk seleksi kedinasan. Jaga pola tidur (7-8 jam) dan kebersihan kesehatan fisik organ dalam.';
   } else if (bmi < 30.0) {
     cat = 'Berat Badan Lebih (Overweight)';
-    catColor = '#f59e0b'; // Oranye
+    catColor = '#f59e0b';
     dietAdvice = '<b>Pola Makan:</b> Defisit kalori moderat (potong 300–500 kcal/hari). Hindari minuman manis/berperisa, gorengan, serta tepung. Utamakan protein tinggi dan sayur serat tinggi.';
     workoutAdvice = '<b>Pola Olahraga:</b> Perbanyak Cardio Zone 2 (Jogging santai 30–45 menit, 4-5x seminggu) untuk membakar lemak secara efektif tanpa mengikis otot, kombinasikan dengan kalistenik.';
     rikkesAdvice = '<b>Fokus Rikkes:</b> Turunkan berat badan secara bertahap menuju batas ideal agar beban sendi saat lari Samapta A jauh lebih ringan dan efisien.';
   } else {
     cat = 'Obesitas';
-    catColor = '#ef4444'; // Merah
+    catColor = '#ef4444';
     dietAdvice = '<b>Pola Makan:</b> Defisit kalori teratur. Catat makanan harian, kurangi porsi karbohidrat sederhana secara bertahap, dan ganti cemilan dengan buah segar serta air putih.';
     workoutAdvice = '<b>Pola Olahraga:</b> Awali dengan olahraga <i>low-impact</i> (Jalan cepat, sepeda statis, atau renang) untuk melindungi sendi lutut & pergelangan kaki. Naikkan intensitas bertahap ke jogging.';
     rikkesAdvice = '<b>Fokus Rikkes:</b> Kategori Obesitas berisiko menurunkan poin kesehatan (Stakes Rikkes). Targetkan penurunan BB secara konsisten setiap minggunya.';
   }
 
-  // Standar Tinggi Kedinasan
   const minHeight = g === 'M' ? 165 : 160;
   const isHeightPass = h >= minHeight;
   const heightStatus = isHeightPass
     ? `<span style="color:var(--ok, #10b981); font-weight:bold">Memenuhi syarat minimal (≥ ${minHeight} cm)</span>`
     : `<span style="color:var(--bad, #ef4444); font-weight:bold">Di bawah standar minimal (${h} / ${minHeight} cm)</span>`;
 
-  // Kalkulasi Berat Badan Ideal (BBI) & Rentang Normal
   const bbiFactor = g === 'M' ? 0.1 : 0.15;
   const bbiIdeal = Math.round((h - 100) - (h - 100) * bbiFactor);
   const bbMinNormal = Math.round(18.5 * (h / 100) ** 2);
@@ -132,19 +125,9 @@ function calcBmi() {
     weightAdvice = `Berat badanmu sudah dalam rentang normal! Target nilai tengah ideal Rikkes adalah <b>${bbiIdeal} kg</b> (selisih ${diffToIdeal} kg).`;
   }
 
-  // Posisi Indikator Bar Pin (BMI Rentang 15 sampai 35)
   const indicatorPos = Math.min(98, Math.max(1, ((bmi - 15) / (35 - 15)) * 100));
 
-  add('bmi', {
-    gender: g,
-    h,
-    w,
-    age,
-    bmi,
-    cat
-  });
-
-  $('#res').innerHTML = `
+  return `
     <div style="margin-top:20px; padding:20px; background:var(--bg); border-radius:14px; border:1px solid var(--bd)">
       <div style="text-align:center">
         <div class="big" style="font-size:3.5rem; color:${catColor}; line-height:1">${bmi}</div>
@@ -156,19 +139,16 @@ function calcBmi() {
       <!-- VISUAL BMI BAR INDIKATOR -->
       <div style="margin:24px 0 12px">
         <div style="position:relative; height:16px; background:#e2e8f0; border-radius:10px; overflow:visible; display:flex">
-          <!-- Segment Warna Kategori -->
           <div style="width:17.5%; background:#3b82f6; border-radius:10px 0 0 10px;" title="Kurus (< 18.5)"></div>
           <div style="width:32%; background:#10b981;" title="Normal (18.5 - 24.9)"></div>
           <div style="width:25%; background:#f59e0b;" title="Gemuk (25.0 - 29.9)"></div>
           <div style="width:25.5%; background:#ef4444; border-radius:0 10px 10px 0;" title="Obesitas (≥ 30.0)"></div>
 
-          <!-- Jarum/Pin Indikator BMI -->
           <div style="position:absolute; left:${indicatorPos}%; top:-8px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; transition:left 0.4s ease">
             <div style="width:4px; height:32px; background:#000; border-radius:2px; box-shadow:0 0 6px rgba(255,255,255,0.9)"></div>
           </div>
         </div>
 
-        <!-- Label Angka Skala di Bawah Bar -->
         <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--mut); margin-top:10px; font-weight:600">
           <span style="color:#3b82f6">Kurus<br>(&lt;18.5)</span>
           <span style="color:#10b981; text-align:center">Normal<br>(18.5 - 24.9)</span>
@@ -211,7 +191,40 @@ function calcBmi() {
       </div>
     </div>
   `;
+}
+
+// ------------------------------------------
+// LOGIKA KALKULASI BMI & RIKKES TARGET
+// ------------------------------------------
+function calcBmi() {
+  const g = $('#g').value;
+  const h = +$('#h').value;
+  const w = +$('#w').value;
+  const age = +$('#a').value || null;
+
+  if (!(h >= 100 && h <= 230 && w >= 25 && w <= 250)) {
+    return toast('Isi tinggi 100–230 cm dan berat 25–250 kg', 1);
+  }
+
+  const bmi = +(w / (h / 100) ** 2).toFixed(1);
+
+  let cat = '';
+  if (bmi < 18.5) cat = 'Kurus (Underweight)';
+  else if (bmi < 25.0) cat = 'Normal (Ideal Rikkes)';
+  else if (bmi < 30.0) cat = 'Berat Badan Lebih (Overweight)';
+  else cat = 'Obesitas';
+
+  add('bmi', {
+    gender: g,
+    h,
+    w,
+    age,
+    bmi,
+    cat
+  });
 
   if (typeof toast === 'function') toast('Hasil analisis tubuh tersimpan');
+  
+  // Render ulang modul agar membaca state terbaru DB.bmi dan langsung memuat hasilnya di layar
   MODS.bmi();
 }
