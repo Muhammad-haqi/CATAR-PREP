@@ -130,6 +130,7 @@ const NAV_ITEMS = [
   ['mental', 'Latihan Mental', '🧠'],
   ['sjt', 'Situational Judgment', '🧭'],
   ['report', 'Laporan Kesiapan', '📊'],
+  ['about', 'Pengembang', '👨‍💻'],
   ['settings', 'Pengaturan', '⚙️']
 ];
 
@@ -327,6 +328,78 @@ MODS.settings = () => {
       <h2>Reset Data</h2>
       <p class="sub">Hapus seluruh riwayat latihan dan profil secara permanen.</p>
       <button class="del" onclick="resetAll()">⚠️ Reset Seluruh Data</button>
+    </div>
+  `;
+};
+
+// ==========================================
+// MODUL 9 — PROFIL PENGEMBANG & ARSITEKTUR
+// ==========================================
+MODS.about = () => {
+  V().innerHTML = `
+    ${hd('Pengembang & Arsitektur Sistem', 'Dokumentasi portofolio keaslian, identitas kreator, dan spesifikasi teknologi CATAR PREP.')}
+
+    <!-- KARTU PROFIL UTAMA -->
+    <div class="card" style="background:linear-gradient(135deg, var(--card) 0%, var(--bg) 100%); border:2px solid var(--navy2,#13398a)">
+      <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap">
+        <div style="width:84px; height:84px; border-radius:50%; background:linear-gradient(135deg, var(--navy2,#13398a) 0%, var(--navy-light,#1e4ab0) 100%); display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#fff; box-shadow:0 4px 14px rgba(19,57,138,0.3)">
+          👨‍💻
+        </div>
+
+        <div style="flex:1; min-width:240px">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+            <h2 style="margin:0; font-size:1.4rem">Muhammad Haqi Rasya Arazy</h2>
+            <span style="background:rgba(16,185,129,0.15); color:var(--ok,#10b981); padding:3px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; border:1px solid var(--ok,#10b981)">
+              ✓ Verified Original Developer
+            </span>
+          </div>
+
+          <p style="margin:4px 0 10px 0; color:var(--mut); font-size:0.95rem">
+            Mahasiswa S1 Program Studi <b>Ilmu Komputer — Universitas Sumatera Utara (USU)</b><br>
+            <small style="color:var(--navy2,#13398a); font-weight:bold">Creator & Software Architect — CATAR PREP Platform</small>
+          </p>
+
+          <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <span style="background:var(--card); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.8rem">💻 Full-Stack Web Development</span>
+            <span style="background:var(--card); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.8rem">📊 Algoritma & Sistem Informasi</span>
+            <span style="background:var(--card); border:1px solid var(--bd); padding:4px 10px; border-radius:8px; font-size:0.8rem">🛡️ Cryptography & Software Architecture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISI & TUBUH INOVASI -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-bottom:20px">
+      <div class="card">
+        <h3 style="margin-top:0; color:var(--navy2,#13398a)">💡 Inovasi & Latar Belakang Ciptaan</h3>
+        <p style="font-size:0.92rem; line-height:1.6; color:var(--ink)">
+          Aplikasi <b>CATAR PREP</b> dikembangkan secara mandiri oleh <b>Muhammad Haqi Rasya Arazy</b> sejak awal 2026. Berawal dari inisiatif untuk menyediakan platform simulasi terpadu, aplikasi ini dirancang khusus untuk membantu para calon taruna/praja dalam mengukur dan mematangkan kesiapan menuju berbagai Sekolah Kedinasan impian (seperti POLTEKIMIPAS, IPDN, STIN, STIS, PKN STAN, dan instansi lainnya).
+        </p>
+        <p style="font-size:0.92rem; line-height:1.6; color:var(--ink); margin-bottom:0">
+          Sistem ini memecahkan kendala calon peserta dalam melacak progres tes fisik, latihan kecepatan psikotes, hingga persiapan wawancara secara otomatis, terukur, dan berbasis standar norma resmi.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0; color:var(--navy2,#13398a)">⚙️ Spesifikasi & Arsitektur Sistem</h3>
+        <ul style="padding-left:18px; margin:0; font-size:0.9rem; line-height:1.8; color:var(--ink)">
+          <li><b>Core Language:</b> Vanilla JavaScript (ES6+) Native Architecture</li>
+          <li><b>State & Data Persistence:</b> Client-Side Reactive LocalStorage</li>
+          <li><b>Visualization Engine:</b> Chart.js (Data Trend & Performance Analytics)</li>
+          <li><b>Document Generator:</b> jsPDF Engine (Official PDF Report Exporter)</li>
+          <li><b>UI/UX Design:</b> Modern Cyber-Kedinasan Responsive CSS3</li>
+          <li><b>Deployment Pipeline:</b> Continuous Integration & Deployment (Vercel Cloud Platform)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SERTIFIKASI & PERNYATAAN HAK CIPTA -->
+    <div class="card" style="text-align:center; background:rgba(56,189,248,0.06); border:1px dashed var(--navy2,#13398a)">
+      <h3 style="margin-top:0; color:var(--navy2,#13398a)">📜 Pernyataan Keaslian & Hak Cipta Perangkat Lunak</h3>
+      <p style="max-width:750px; margin:0 auto 12px; font-size:0.9rem; color:var(--ink); line-height:1.6">
+        "Seluruh baris kode program, kalkulasi logika norma Samapta, algoritma Pauli CAT, serta desain antarmuka aplikasi <b>CATAR PREP</b> dibuat dan dirancang 100% secara mandiri oleh <b>Muhammad Haqi Rasya Arazy</b> tanpa menggunakan template generator instan."
+      </p>
+      <small style="color:var(--mut); font-weight:bold">CATARPREP © 2026 — Master Selection Simulator for Sekolah Kedinasan</small>
     </div>
   `;
 };
